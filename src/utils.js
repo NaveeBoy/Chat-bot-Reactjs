@@ -47,6 +47,9 @@ export const analyze = (text) => {
     else if (text.includes("email")||text.includes('contact'))
         return "quickjobs@gmail.com"
 
+    else if (text.includes('location')||text.includes('address'))
+        return "I'm from every Where ! "
+
     else if (text.includes('weather'))
         return `I'm sorry, I can't provide weather information at the moment.`
 
