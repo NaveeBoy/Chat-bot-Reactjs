@@ -1,5 +1,18 @@
 import moment from "moment/moment"
 
+// Array of random responses
+const randomResponses = [
+    "Hmm, interesting.",
+    "I see...",
+    "Tell me more!",
+    "Fascinating!",
+    "That's quite intriguing!",
+    "I'm not sure what to say about that.",
+    "Interesting point of view!",
+    "Hmm, I'll have to think about that.",
+    "I'm learning something new today!",
+];
+
 export const analyze = (text) => {
     if (text.includes('hi') || text.includes('hai') || text.includes('hello'))
         return `Hi! How are you today?`
@@ -34,5 +47,6 @@ export const analyze = (text) => {
     else if (text.includes('goodbye') || text.includes('bye'))
         return `Goodbye! Have a great day!`
 
-    return "I'm sorry, I didn't quite catch that. Can you please rephrase?"
+    // Return a random response if no specific condition is met
+    return randomResponses[Math.floor(Math.random() * randomResponses.length)];
 }
