@@ -33,7 +33,7 @@ export const analyze = (text) => {
         return `The bank interest rate is 8.7% annually.`
 
     else if(text.includes('job type')|| text.includes('types')|| text.includes('categories'))
-        return "Line one\nLine two"
+        return "Sware/DB/QA/Web/Graphics/GIS , HWare/Networks/Systems , Accounting/Auditing/Finance , Banking & Finance/Insurance , Sales/Marketing/Merchandising , Civil Eng/Interior Design/Architecture"
 
     else if (text.includes('thank you'))
         return `You're welcome!`
