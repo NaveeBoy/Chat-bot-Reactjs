@@ -5,9 +5,11 @@ import { IoMdClose } from "react-icons/io";
 import "./Chatbot.css"; // Import CSS file for styling
 
 const Chatbot = () => {
+  const initialMessage = "Hi, May I know your name?";
+  
   const [messages, setMessages] = useState([
     {
-      message: "Hi, May I know your name?",
+      message: initialMessage,
     },
   ]);
 
@@ -15,10 +17,20 @@ const Chatbot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
+    if (messages.length > 1) {
+      setMessages([{ message: initialMessage }]);
+    }
     setIsChatOpen(!isChatOpen);
   };
 
   const onSend = () => {
+    // If the user sends "clear", clear the chat body
+    if (text.trim().toLowerCase() === "clear") {
+      setMessages([{ message: initialMessage }]);
+      setText("");
+      return;
+    }
+
     let list = [...messages, { message: text, user: true }];
 
     if (list.length > 2) {
