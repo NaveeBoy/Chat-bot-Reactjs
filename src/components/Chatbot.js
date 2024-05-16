@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import "./Chatbot.css"; // Import CSS file for styling
 
 const Chatbot = () => {
-  const initialMessage = "Hi, May I know your name?";
+  const initialMessage = "Hi, Welcome to QuickJobs Chat , May I know your name?";
   
   const [messages, setMessages] = useState([
     {
