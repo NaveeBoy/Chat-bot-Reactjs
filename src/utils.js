@@ -35,11 +35,17 @@ export const analyze = (text) => {
     else if (text.includes('owner')||text.includes('developer')|| text.includes('inventor'))
         return "K.N.D.Perera"
 
+    else if (text.includes('about') || text.includes("what") || text.includes('why'))
+        return "Once your account has been created, you can login at any time and use your own Workspace in the system. From this workspace, you can apply for jobs, upload your CV, search for vacancies, see your list of applied jobs, and most importantly be given feedback on the progress of your vacancy applications."
+
     else if(text.includes('job types')|| text.includes('types')|| text.includes('categories'))
         return "Sware/DB/QA/Web/Graphics/GIS , HWare/Networks/Systems , Accounting/Auditing/Finance , Banking & Finance/Insurance , Sales/Marketing/Merchandising , Civil Eng/Interior Design/Architecture"
 
-    else if (text.includes('thank you'))
+    else if (text.includes('thank you')|| text.includes("thank") || text.includes("thanks"))
         return `You're welcome!`
+
+    else if (text.includes("email")||text.includes('contact'))
+        return "quickjobs@gmail.com"
 
     else if (text.includes('weather'))
         return `I'm sorry, I can't provide weather information at the moment.`
