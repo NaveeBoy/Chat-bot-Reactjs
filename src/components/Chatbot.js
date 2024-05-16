@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { analyze } from "../utils";
 import ChatMessage from "./ChatMessage";
 import { IoMdClose } from "react-icons/io";
@@ -15,6 +15,15 @@ const Chatbot = () => {
 
   const [text, setText] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll chat container to bottom on message update
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const toggleChat = () => {
     if (messages.length > 1) {
@@ -49,6 +58,11 @@ const Chatbot = () => {
     }
     setMessages(list);
     setText("");
+
+    // Scroll chat container to bottom after sending message
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   };
 
   return (
@@ -64,7 +78,7 @@ const Chatbot = () => {
         </div>
       )}
       {isChatOpen && (
-        <div className="chat-container">
+        <div className="chat-container" ref={chatContainerRef}>
           <div className="chat-header">
             <img
               src="./icons8-chatbot.gif"

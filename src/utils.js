@@ -32,6 +32,9 @@ export const analyze = (text) => {
     else if (text.includes('interest'))
         return `The bank interest rate is 8.7% annually.`
 
+    else if(text.includes('job type')|| text.includes('types')|| text.includes('categories'))
+        return "Line one\nLine two"
+
     else if (text.includes('thank you'))
         return `You're welcome!`
 
