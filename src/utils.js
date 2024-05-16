@@ -26,7 +26,7 @@ export const analyze = (text) => {
     else if (text.includes('time'))
         return `The current time is ${moment().format('h:mm:ss a')}`
 
-    else if (text.includes('google link'))
+    else if (text.includes('google link')|| text.includes('google'))
         return `Sure, here is a link to Google: https://www.google.com`
 
     else if (text.includes('interest'))
