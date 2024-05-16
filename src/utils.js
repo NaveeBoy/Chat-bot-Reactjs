@@ -32,7 +32,10 @@ export const analyze = (text) => {
     else if (text.includes('interest'))
         return `The bank interest rate is 8.7% annually.`
 
-    else if(text.includes('job type')|| text.includes('types')|| text.includes('categories'))
+    else if (text.includes('owner')||text.includes('developer')|| text.includes('inventor'))
+        return "K.N.D.Perera"
+
+    else if(text.includes('job types')|| text.includes('types')|| text.includes('categories'))
         return "Sware/DB/QA/Web/Graphics/GIS , HWare/Networks/Systems , Accounting/Auditing/Finance , Banking & Finance/Insurance , Sales/Marketing/Merchandising , Civil Eng/Interior Design/Architecture"
 
     else if (text.includes('thank you'))
