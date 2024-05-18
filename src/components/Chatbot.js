@@ -5,21 +5,15 @@ import { IoMdClose } from "react-icons/io";
 import "./Chatbot.css"; // Import CSS file for styling
 
 const Chatbot = () => {
-  const initialMessage = "Hi, Welcome to QuickJobs Chat , May I know your name?";
-  
-  const [messages, setMessages] = useState([
-    {
-      message: initialMessage,
-    },
-  ]);
+  const initialMessage = "Hi, Welcome to QuickJobs Chat, May I know your name?";
 
+  const [messages, setMessages] = useState([{ message: initialMessage }]);
   const [text, setText] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
-
+  const [userName, setUserName] = useState(null);
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
-    // Scroll chat container to bottom on message update
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
@@ -28,79 +22,77 @@ const Chatbot = () => {
   const toggleChat = () => {
     if (messages.length > 1) {
       setMessages([{ message: initialMessage }]);
+      setUserName(null);
     }
     setIsChatOpen(!isChatOpen);
   };
 
-  const onSend = () => {
-    // If the user sends "clear", clear the chat body
-    if (text.trim().toLowerCase() === "clear") {
+  const onSend = (message = null) => {
+    const userMessage = message || text;
+
+    if (userMessage.trim().toLowerCase() === "clear") {
       setMessages([{ message: initialMessage }]);
       setText("");
+      setUserName(null);
       return;
     }
 
-    let list = [...messages, { message: text, user: true }];
+    let list = [...messages, { message: userMessage, user: true }];
 
-    if (list.length > 2) {
-      const reply = analyze(text);
-      list = [...list, { message: reply }];
-    } else {
+    if (!userName) {
+      setUserName(userMessage);
       list = [
         ...list,
+        { message: `Hi, ${userMessage}!` },
         {
-          message: `Hi, ${text}`,
-        },
-        {
-          message: `How can I help you?`,
-        },
+          message: 'What would you like to know?',
+          options: ['Contact', 'Email', 'Address', 'Categories']
+        }
       ];
+    } else {
+      const reply = analyze(userMessage);
+      if (typeof reply === 'object' && reply.options) {
+        list = [...list, { message: reply.message, options: reply.options }];
+      } else {
+        list = [...list, { message: reply }];
+      }
     }
+
     setMessages(list);
     setText("");
 
-    // Scroll chat container to bottom after sending message
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
+  };
+
+  const handleOptionClick = (option) => {
+    onSend(option);
   };
 
   return (
     <div>
       {!isChatOpen && (
         <div className="chat-bubble" onClick={toggleChat}>
-          <img
-            src="./icons8-chatbot.gif"
-            alt="Chat bubble"
-            width={80}
-            height={80}
-          />
+          <img src="./icons8-chatbot.gif" alt="Chat bubble" width={80} height={80} />
         </div>
       )}
       {isChatOpen && (
         <div className="chat-container" ref={chatContainerRef}>
           <div className="chat-header">
-            <img
-              src="./icons8-chatbot.gif"
-              alt="logo"
-              width={40}
-              height={40}
-            />
-            <h2 className=""> &nbsp;Chat with QuickJobs</h2>
+            <img src="./icons8-chatbot.gif" alt="logo" width={40} height={40} />
+            <h2 className=""> &nbsp;Chat with QuickJobs&nbsp;&nbsp;</h2>
             <div className="close-btn" onClick={toggleChat}>
               <IoMdClose />
             </div>
           </div>
 
           <div className="chat-messages">
-            {messages.length > 0 &&
-              messages.map((data, index) => {
-                return (
-                  <div key={index}>
-                    <ChatMessage {...data} />
-                  </div>
-                );
-              })}
+            {messages.length > 0 && messages.map((data, index) => (
+              <div key={index}>
+                <ChatMessage {...data} onClick={(message) => handleOptionClick(message)} />
+              </div>
+            ))}
           </div>
 
           <div className="chat-input">
@@ -111,7 +103,7 @@ const Chatbot = () => {
               value={text}
               onChange={(event) => setText(event.target.value)}
             />
-            <button className="btn btn-primary" onClick={onSend}>
+            <button className="btn btn-primary" onClick={() => onSend()}>
               Send
             </button>
           </div>
