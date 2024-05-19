@@ -14,7 +14,7 @@ export const analyze = (text) => {
     }else if (text.toLowerCase().includes('sales/marketing/merchandising')) {
       return 'Skilled in sales strategies, marketing campaigns, and product merchandising.';
     }else if (text.toLowerCase().includes('civil eng/interior design/Architecture')) {
-      return ' Expertise in civil engineering, interior design, and architectural planning';
+      return ' Expertise in civil engineering, interior design,and architectural planning';
     }else if (text.toLowerCase().includes('address')) {
       return 'The address is QuickJob\' s Server!';
     } else if (text.toLowerCase().includes('categories')) {
