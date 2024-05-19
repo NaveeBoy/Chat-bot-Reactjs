@@ -25,8 +25,8 @@ export const analyze = (text) => {
           'Hardware/Networks/Systems',
           'Accounting/Auditing/Finance',
           'Banking & Finance/Insurance',
-          'Sales/Marketing/Merchandising',
-          'Civil Eng/Interior Design/Architecture'
+          'Sales/Marketing/Merchandising'
+          
         ]
       };
     } else if (text.toLowerCase().includes('hi') || text.toLowerCase().includes('hello')) {
